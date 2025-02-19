@@ -43,12 +43,16 @@ function App() {
   };
 
   const filteredPeoples = () => {
-    const peoplesList = [];
-    data.forEach((listPeoples) => {
-      listPeoples.people.forEach((people) => {
-        peoplesList.push(people);
-      });
-    });
+    const peoplesList = data.reduce(
+      (acc1, currVal1) =>
+        acc1.concat(
+          currVal1.people.reduce((acc2, currVal2) => {
+            acc2.push(currVal2);
+            return acc2;
+          }, [])
+        ),
+      []
+    );
 
     if (filtered) {
       return peoplesList.filter((people) =>

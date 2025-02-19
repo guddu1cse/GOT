@@ -23,16 +23,12 @@ const FilterBar = ({
     setFiltered(true);
     setSearch("");
     setPeoples(() => {
-      let p = [];
-      data.forEach((list) => {
-        if (list.name.toLowerCase() === filter.name.toLowerCase()) {
-          p = list.people;
-        }
-      });
-      return p;
+      return data.reduce((acc, val) => {
+        return val.name.toLowerCase() === filter.name.toLowerCase()
+          ? acc.concat(val.people)
+          : acc;
+      }, []);
     });
-
-    console.log(filter.name);
   };
 
   const style = {
@@ -55,6 +51,7 @@ const FilterBar = ({
       fontSize: isMobile ? "10px" : "12px",
     },
   };
+
   return (
     <div style={style.container}>
       {filters.map((filter) => {
