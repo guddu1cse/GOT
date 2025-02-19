@@ -1,12 +1,40 @@
 import React from "react";
 
 const FilterBar = ({
+  data,
+  setPeoples,
   setFiltered,
   setSearch,
   isMobile,
   filters,
   setFilters,
 }) => {
+  //handling the btn
+  const handleFilter = (filter) => {
+    setFilters((prevFilters) => {
+      return prevFilters.map((prevFilter) => {
+        return {
+          ...prevFilter,
+          checked: prevFilter.id === filter.id,
+        };
+      });
+    });
+
+    setFiltered(true);
+    setSearch("");
+    setPeoples(() => {
+      let p = [];
+      data.forEach((list) => {
+        if (list.name.toLowerCase() === filter.name.toLowerCase()) {
+          p = list.people;
+        }
+      });
+      return p;
+    });
+
+    console.log(filter.name);
+  };
+
   const style = {
     container: {
       width: "100%",
@@ -39,23 +67,9 @@ const FilterBar = ({
               borderColor: filter.checked ? "black" : "white",
               backgroundColor: filter.checked ? "white" : "black",
             }}
-            onClick={() => {
-              setFilters((prevFilters) => {
-                return prevFilters.map((prevFilter) => {
-                  return {
-                    ...prevFilter,
-                    checked: prevFilter.id === filter.id,
-                  };
-                });
-              });
-              setFiltered(true);
-              setSearch(
-                filter.name.substring(0, filter.name.length - 1).toLowerCase()
-              );
-              console.log(filter.name);
-            }}
+            onClick={() => handleFilter(filter)}
           >
-            {filter.name}
+            {filter.name.toUpperCase()}
           </button>
         );
       })}

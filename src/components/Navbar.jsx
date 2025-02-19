@@ -1,6 +1,14 @@
 import React, { use } from "react";
-import { useEffect, useState } from "react";
-const Navbar = ({ setFiltered, setSearch, isMobile, setFilters }) => {
+const Navbar = ({ setFiltered, setSearch, isMobile, setFilters, search }) => {
+  //handling the input event
+  const handleEvent = (e) => {
+    setSearch(e.target.value);
+    setFiltered(e.target.value.length > 0);
+    setFilters((prevFilters) =>
+      prevFilters.map((filter) => ({ ...filter, checked: false }))
+    );
+  };
+
   const style = {
     navbar: {
       display: "flex",
@@ -26,17 +34,13 @@ const Navbar = ({ setFiltered, setSearch, isMobile, setFilters }) => {
       marginBottom: isMobile ? "10px" : "20px",
     },
   };
+
   return (
     <div style={style.navbar}>
       <p style={style.heading}>People of GOT👑</p>
       <input
-        onChange={(e) => {
-          setSearch(e.target.value);
-          setFiltered(e.target.value.length > 0);
-          setFilters((prevFilters) =>
-            prevFilters.map((filter) => ({ ...filter, checked: false }))
-          );
-        }}
+        value={search}
+        onChange={(e) => handleEvent(e)}
         placeholder="Search"
         style={style.input}
       />

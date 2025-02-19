@@ -10,19 +10,23 @@ function App() {
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [filters, setFilters] = useState(() => {
-    let filters =
-      "STARKS LANNISTERS BARATHEONS TARGARYENS GREYJOYS TYRELLS TULLYS REDWYNE FREYS ARRYNS DOTHRAKIS"
-        .split(" ")
-        .map((name) => ({ id: name, name: name, checked: false }));
+  const [filters, setFilters] = useState([]);
+
+  const getFilters = () => {
+    let filters = data.map((list) => ({
+      id: list.name,
+      name: list.name,
+      checked: false,
+    }));
     return filters;
-  });
+  };
 
   useEffect(() => {
     setPeoples(filteredPeoples());
   }, [search, filtered]);
 
   useEffect(() => {
+    setFilters(getFilters());
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -84,6 +88,7 @@ function App() {
         setSearch={setSearch}
         isMobile={isMobile}
         setFilters={setFilters}
+        search={search}
       />
 
       <FilterBar
@@ -92,6 +97,8 @@ function App() {
         isMobile={isMobile}
         filters={filters}
         setFilters={setFilters}
+        data={data}
+        setPeoples={setPeoples}
       />
 
       <div style={style.container} onResize={() => console.log("resize")}>
