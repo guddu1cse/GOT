@@ -1,5 +1,19 @@
 let got = [
     {
+        name: "Guddu",
+        wikiLink: "https://guddu1cse.github.io/myportfolio/",
+        people: [
+            {
+                name: "Guddu Kumar",
+                description:
+                    "Software Engineer at Mountblue Technologies",
+                image:
+                    "https://avatars.githubusercontent.com/u/73424882?s=400&u=56dc45a1f9f667ae77bce3faac22a7ee73d68a94&v=4",
+                wikiLink: "https://guddu1cse.github.io/myportfolio/",
+            },
+        ],
+    },
+    {
         name: "Starks",
         wikiLink: "http://gameofthrones.wikia.com/wiki/House_Stark",
         people: [
